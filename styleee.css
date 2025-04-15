@@ -201,7 +201,6 @@ h1:after {
     width: 45%;
     padding: 10px;
     border-radius: 6px;
-    background-color: rgba(26, 75, 135, 0.9);
     transition: all 0.3s ease;
 }
 
