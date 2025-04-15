@@ -1,104 +1,41 @@
-
-.scroll{
-    padding: 500px;
-    background-color: white;
-}
-* {
+.indaba-program-section * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-
-body {
+.spacer{
+    height: 100vh;
+}
+*{
+    margin: 0;
+}
+.show_disc{
+    display: none;
+}
+.indaba-program-section {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #fff;
     margin: 0;
-    padding: 0;
+    padding: 20px 0;
     background-image: url(/assests/site_cover.png);
     background-size: cover;
     background-attachment: fixed;
-    overflow-x: hidden;
+    position: relative;
 }
 
-header {
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo img {
-    height: 40px;
-    margin-right: 10px;
-}
-
-.logo-text {
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1em;
-    line-height: 1.2;
-}
-
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    margin-left: 20px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 0.8em;
-    letter-spacing: 1px;
-    transition: color 0.3s;
-}
-
-nav ul li a:hover {
-    color: #cdb591;
-}
-
-.content {
+.indaba-program-content {
     max-width: 1200px;
     margin: 20px auto;
     padding: 25px 15px;
     background-color: rgba(26, 75, 135, 0.8);
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
     border-radius: 8px;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(1px);
+    opacity: 1;
 }
 
-h1 {
+.indaba-program-section h1 {
     font-size: 2.2em;
     margin-bottom: 20px;
     font-weight: 300;
@@ -108,7 +45,7 @@ h1 {
     position: relative;
 }
 
-h1:after {
+.indaba-program-section h1:after {
     content: '';
     display: block;
     width: 80px;
@@ -117,7 +54,7 @@ h1:after {
     margin: 15px auto 0;
 }
 
-.intro-text {
+.indaba-intro-text {
     margin-bottom: 30px;
     font-size: 1em;
     text-align: center;
@@ -126,7 +63,7 @@ h1:after {
     margin-right: auto;
 }
 
-.button {
+.indaba-button {
     display: block;
     width: 100%;
     max-width: 300px;
@@ -143,13 +80,13 @@ h1:after {
     letter-spacing: 1px;
 }
 
-.button:hover {
+.indaba-button:hover {
     background-color: #fff;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.note {
+.indaba-note {
     margin: 20px 0;
     font-style: italic;
     text-align: center;
@@ -158,11 +95,11 @@ h1:after {
 }
 
 /* Timeline Styles */
-.day-section {
+.indaba-day-section {
     margin-bottom: 50px;
 }
 
-.day-title {
+.indaba-day-title {
     text-align: center;
     font-size: 2em;
     color: #fff;
@@ -171,14 +108,14 @@ h1:after {
     letter-spacing: 2px;
 }
 
-.timeline {
+.indaba-timeline {
     position: relative;
     max-width: 600px;
     margin: 0 auto;
     padding: 20px 0;
 }
 
-.timeline::after {
+.indaba-timeline::after {
     content: '';
     position: absolute;
     width: 3px;
@@ -189,47 +126,48 @@ h1:after {
     margin-left: -1.5px;
 }
 
-.timeline-item {
+.indaba-timeline-item {
     position: relative;
     width: 100%;
     margin-bottom: 30px;
     min-height: 60px;
 }
 
-.timeline-content {
+.indaba-timeline-content {
     position: absolute;
     width: 45%;
-    padding: 10px;
+    padding: 5px;
     border-radius: 6px;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 /* Position content on alternating sides */
-.timeline-item:nth-child(odd) .timeline-content {
+.indaba-timeline-item:nth-child(odd) .indaba-timeline-content {
     left: 0;
     text-align: right;
     padding-right: 20px;
 }
 
-.timeline-item:nth-child(even) .timeline-content {
+.indaba-timeline-item:nth-child(even) .indaba-timeline-content {
     right: 0;
     text-align: left;
     padding-left: 20px;
 }
 
-.timeline-time {
+.indaba-timeline-time {
     font-size: 1.2em;
     color: #fff;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-.timeline-title {
+.indaba-timeline-title {
     font-size: 1em;
     color: #cdb591;
 }
 
-.timeline-node {
+.indaba-timeline-node {
     position: absolute;
     width: 40px;
     height: 40px;
@@ -242,7 +180,7 @@ h1:after {
     cursor: pointer;
 }
 
-.timeline-node img {
+.indaba-timeline-node img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -251,7 +189,7 @@ h1:after {
 }
 
 /* Connector lines */
-.timeline-connector {
+.indaba-timeline-connector {
     position: absolute;
     width: 20px;
     height: 3px;
@@ -260,16 +198,16 @@ h1:after {
     z-index: 1;
 }
 
-.timeline-item:nth-child(odd) .timeline-connector {
+.indaba-timeline-item:nth-child(odd) .indaba-timeline-connector {
     right: calc(50% + 20px);
 }
 
-.timeline-item:nth-child(even) .timeline-connector {
+.indaba-timeline-item:nth-child(even) .indaba-timeline-connector {
     left: calc(50% + 20px);
 }
 
 /* Description slides */
-.timeline-description {
+.indaba-timeline-description {
     position: absolute;
     width: 45%;
     padding: 10px 15px;
@@ -286,59 +224,69 @@ h1:after {
 }
 
 /* Position description on opposite side of content */
-.timeline-item:nth-child(odd) .timeline-description {
+.indaba-timeline-item:nth-child(odd) .indaba-timeline-description {
     right: 0;
     text-align: left;
     padding-left: 20px;
 }
 
-.timeline-item:nth-child(even) .timeline-description {
+.indaba-timeline-item:nth-child(even) .indaba-timeline-description {
     left: 0;
     text-align: right;
     padding-right: 20px;
 }
 
-/* Show on hover */
-.timeline-node:hover img {
+/* REMOVED: No longer rotate on hover */
+/* .indaba-timeline-node:hover img {
     transform: rotateY(180deg);
-}
+} */
 
-.timeline-item:hover .timeline-description {
+/* Show description and rotate image when description is visible */
+.indaba-timeline-item:hover .indaba-timeline-description {
     opacity: 1;
     transform: translateY(0);
 }
 
+/* Rotate the node image when the description is shown on hover */
+.indaba-timeline-item:hover .indaba-timeline-node img {
+    transform: rotateY(180deg);
+}
+
 /* Mobile Styles for Timeline */
 @media (max-width: 768px) {
-    .timeline::after {
+    .indaba-timeline::after {
         left: 30px;
     }
     
-    .timeline-item {
+    .indaba-timeline-item {
         margin-bottom: 50px;
     }
     
-    .timeline-content {
+    .indaba-timeline-content {
         width: calc(100% - 70px);
         left: 70px !important;
         right: auto !important;
         text-align: left !important;
         padding-left: 15px !important;
         padding-right: 15px !important;
+        padding: 7px;
     }
-    
-    .timeline-node {
+    .sapcer{
+        height: 100vh;
+    }
+    .indaba-timeline-node {
         left: 30px;
         transform: none;
     }
     
-    .timeline-connector {
-        width: 30px;
-        left: 50px !important;
+    .indaba-timeline-connector {
+        width: 10px;
+        left: 30px !important;
         right: auto !important;
+        margin-left: 40px;
     }
     
-    .timeline-description {
+    .indaba-timeline-description {
         width: calc(100% - 70px);
         left: 70px !important;
         right: auto !important;
@@ -348,81 +296,72 @@ h1:after {
         padding-right: 15px !important;
     }
     
-    /* Touch behavior for mobile */
-    .timeline-node.active img {
+    /* Disable hover effects on mobile */
+    .indaba-timeline-item:hover .indaba-timeline-description {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    
+    /* Disable hover rotation on mobile */
+    .indaba-timeline-item:hover .indaba-timeline-node img {
+        transform: none;
+    }
+    
+    /* Touch behavior for mobile - rotate image when node is active */
+    .indaba-timeline-node.active img {
         transform: rotateY(180deg);
     }
     
-    .timeline-item .timeline-node.active + .timeline-description {
+    /* Show description when node is active */
+    .indaba-timeline-node.active ~ .indaba-timeline-description {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* Header/Navigation Mobile styles */
-@media (max-width: 768px) {
-    .header-container {
-        flex-direction: column;
-        text-align: center;
-        align-items: flex-start;
-    }
-    
-    .menu-toggle {
+    .show_disc{
         display: block;
         position: absolute;
-        right: 15px;
-        top: 15px;
-    }
-    
-    nav {
-        width: 100%;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.5s ease;
-    }
-    
-    nav.active {
-        max-height: 300px;
-    }
-    
-    nav ul {
-        flex-direction: column;
-        width: 100%;
-        padding-top: 10px;
-    }
-    
-    nav ul li {
-        margin: 0;
-        text-align: center;
-        padding: 10px 0;
-        border-top: 1px solid rgba(255,255,255,0.1);
+        right: 0;
     }
 }
 
 /* Small mobile screens */
 @media (max-width: 480px) {
-    h1 {
+    .indaba-timeline-connector{
+        width: 3vw;
+    }
+    .indaba-program-section h1 {
         font-size: 1.8em;
     }
     
-    .day-title {
+    .indaba-day-title {
         font-size: 1.5em;
     }
     
-    .timeline-time {
+    .indaba-timeline-time {
         font-size: 1em;
     }
     
-    .timeline-title {
+    .indaba-timeline-title {
         font-size: 0.9em;
     }
     
-    .timeline-node {
-        width: 30px;
-        height: 30px;
-    }
     
-    .content {
+    .indaba-program-content {
         padding: 20px 12px;
     }
+    .indaba-timeline-content{
+        padding: 10px;
+    }
 }
+.Prog_outline{
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 5rem;
+    font-weight: 400;
+    text-shadow: 0 0 1px #ffff,   /* soft blue glow */
+               0 0 1.5px #ffff,
+               0 0 1.5px #ffff;
+  }
+  .program-nav {
+    text-align: center;
+  }

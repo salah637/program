@@ -1,71 +1,121 @@
-// Mobile menu toggle functionality and touch support for descriptions
 document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.getElementById('menuToggle');
-    const mainNav = document.getElementById('mainNav');
-    
-    if (menuToggle && mainNav) {
-        menuToggle.addEventListener('click', function() {
-            mainNav.classList.toggle('active');
-            menuToggle.textContent = mainNav.classList.contains('active') ? '✕' : '☰';
-        });
-        
-        // Close menu when clicking on a link
-        const navLinks = document.querySelectorAll('nav ul li a');
-        navLinks.forEach(function(link) {
-            link.addEventListener('click', function() {
-                mainNav.classList.remove('active');
-                menuToggle.textContent = '☰';
-            });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const isClickInsideNav = mainNav.contains(event.target);
-            const isClickOnToggle = menuToggle.contains(event.target);
-            
-            if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('active')) {
-                mainNav.classList.remove('active');
-                menuToggle.textContent = '☰';
-            }
-        });
-    }
-    
-    // Mobile touch support for timeline nodes
+    // Check if touch is supported
     if ('ontouchstart' in window) {
-        const timelineNodes = document.querySelectorAll('.timeline-node');
-        const allItems = document.querySelectorAll('.timeline-item');
+        const timelineNodes = document.querySelectorAll('.indaba-timeline-node');
+        const timelineContents = document.querySelectorAll('.indaba-timeline-content');
+        
+        // Track touch start position to distinguish between taps and scrolls
+        let touchStartY = 0;
+        let isTapping = false;
+        
+        // Function to close all popups
+        function closeAllPopups() {
+            document.querySelectorAll('.indaba-timeline-node.active').forEach(node => {
+                node.classList.remove('active');
+            });
+        }
         
         // Add touch handlers to nodes
         timelineNodes.forEach(node => {
             node.addEventListener('touchstart', function(e) {
-                e.preventDefault();
+                // Store initial touch position
+                touchStartY = e.touches[0].clientY;
+                isTapping = true;
                 
-                // Close any other open descriptions first
-                document.querySelectorAll('.timeline-node.active').forEach(activeNode => {
-                    if (activeNode !== node) {
-                        activeNode.classList.remove('active');
-                    }
-                });
-                
-                // Toggle active class for this node
-                node.classList.toggle('active');
+                // Don't prevent default here to allow scrolling
             });
-        });
-        
-        // Close descriptions when touching elsewhere
-        document.addEventListener('touchstart', function(e) {
-            if (!e.target.closest('.timeline-node')) {
-                document.querySelectorAll('.timeline-node.active').forEach(node => {
-                    node.classList.remove('active');
-                });
-            }
-        });
-        
-        // Prevent scrolling when touching nodes (but allow scrolling elsewhere)
-        timelineNodes.forEach(node => {
+            
             node.addEventListener('touchmove', function(e) {
-                e.preventDefault();
+                // Check if user is scrolling or just tapping
+                const touchMoveY = e.touches[0].clientY;
+                const deltaY = Math.abs(touchMoveY - touchStartY);
+                
+                // If moved more than 10px, consider it a scroll, not a tap
+                if (deltaY > 10) {
+                    isTapping = false;
+                }
+                
+                // Don't prevent default to allow scrolling
             });
+            
+            node.addEventListener('touchend', function(e) {
+                // Only handle as a tap if not scrolling
+                if (isTapping) {
+                    // Check if this node is already active
+                    const isCurrentlyActive = node.classList.contains('active');
+                    
+                    // Close any other open descriptions first
+                    closeAllPopups();
+                    
+                    // Toggle active class for this node - only add it if it wasn't already active
+                    if (!isCurrentlyActive) {
+                        node.classList.add('active');
+                    }
+                    // If it was active, it's now closed by closeAllPopups()
+                    
+                    // Prevent default action only for taps
+                    e.preventDefault();
+                }
+            });
+        });
+        
+        // Add touch handlers to timeline content (text)
+        timelineContents.forEach(content => {
+            content.addEventListener('touchstart', function(e) {
+                // Store initial touch position
+                touchStartY = e.touches[0].clientY;
+                isTapping = true;
+                
+                // Don't prevent default here to allow scrolling
+            });
+            
+            content.addEventListener('touchmove', function(e) {
+                // Check if user is scrolling or just tapping
+                const touchMoveY = e.touches[0].clientY;
+                const deltaY = Math.abs(touchMoveY - touchStartY);
+                
+                // If moved more than 10px, consider it a scroll, not a tap
+                if (deltaY > 10) {
+                    isTapping = false;
+                }
+                
+                // Don't prevent default to allow scrolling
+            });
+            
+            content.addEventListener('touchend', function(e) {
+                // Only handle as a tap if not scrolling
+                if (isTapping) {
+                    // Get the parent timeline item
+                    const timelineItem = content.closest('.indaba-timeline-item');
+                    
+                    // Find the node in this timeline item
+                    const nodeInSameItem = timelineItem.querySelector('.indaba-timeline-node');
+                    
+                    // Check if this node is already active
+                    const isCurrentlyActive = nodeInSameItem && nodeInSameItem.classList.contains('active');
+                    
+                    // Close all popups first
+                    closeAllPopups();
+                    
+                    // Add active class to the node in this timeline item only if it wasn't already active
+                    if (nodeInSameItem && !isCurrentlyActive) {
+                        nodeInSameItem.classList.add('active');
+                    }
+                    // If it was active, it's now closed by closeAllPopups()
+                    
+                    // Prevent default action only for taps
+                    e.preventDefault();
+                }
+            });
+        });
+        
+        // Close descriptions when touching elsewhere (using touchend to allow scrolling)
+        document.addEventListener('touchend', function(e) {
+            if (!e.target.closest('.indaba-timeline-node') && 
+                !e.target.closest('.indaba-timeline-content') &&
+                !e.target.closest('.indaba-timeline-description')) {
+                closeAllPopups();
+            }
         });
     }
 });
