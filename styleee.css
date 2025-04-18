@@ -5,11 +5,17 @@
 }
 .spacer{
     height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
 *{
     margin: 0;
 }
 .show_disc{
+    display: none;
+}
+.more_info{
     display: none;
 }
 .indaba-program-section {
@@ -23,7 +29,11 @@
     background-attachment: fixed;
     position: relative;
 }
-
+@supports (-webkit-touch-callout: none) or (not (background-attachment: fixed)) {
+    .indaba-program-section {
+        background-repeat: repeat;
+    }
+}
 .indaba-program-content {
     max-width: 1200px;
     margin: 20px auto;
@@ -251,7 +261,30 @@
 .indaba-timeline-item:hover .indaba-timeline-node img {
     transform: rotateY(180deg);
 }
+#show-day2-button, #hide-day2-button {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 40px auto 10px;
+    padding: 12px;
+    text-align: center;
+    background-color: #cdb591;
+    color: #1a4b87;
+    text-decoration: none;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
 
+#show-day2-button:hover, #hide-day2-button:hover {
+    background-color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
 /* Mobile Styles for Timeline */
 @media (max-width: 768px) {
     .indaba-timeline::after {
@@ -322,6 +355,19 @@
         position: absolute;
         right: 0;
     }
+    .more_info{
+        display: block;
+        position: absolute;
+        font-size: 0.45rem;
+        left: 0;
+        top: 20%;
+        margin-left: 145px;
+        pointer-events: none;
+        border: 1px solid #cdb591;
+        backdrop-filter: blur(10px);
+        border-radius: 40px;
+        padding: 3px;
+    }
 }
 
 /* Small mobile screens */
@@ -351,6 +397,9 @@
     }
     .indaba-timeline-content{
         padding: 10px;
+    }
+    .more_info{
+        margin-left: 135px;
     }
 }
 .Prog_outline{
