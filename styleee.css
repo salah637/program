@@ -5,11 +5,18 @@
 }
 .spacer{
     height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
 *{
     margin: 0;
 }
+/* Remove these since they're no longer needed */
 .show_disc{
+    display: none;
+}
+.more_info{
     display: none;
 }
 .indaba-program-section {
@@ -23,7 +30,11 @@
     background-attachment: fixed;
     position: relative;
 }
-
+@supports (-webkit-touch-callout: none) or (not (background-attachment: fixed)) {
+    .indaba-program-section {
+        background-repeat: repeat;
+    }
+}
 .indaba-program-content {
     max-width: 1200px;
     margin: 20px auto;
@@ -130,16 +141,30 @@
     position: relative;
     width: 100%;
     margin-bottom: 30px;
-    min-height: 60px;
+    padding-bottom: 50px; /* Add padding to make room for description */
+    /* Add minimum height to prevent overlapping */
+    min-height: 150px; 
 }
 
+/* Restructuring the timeline item layout */
+.indaba-timeline-item-header {
+    position: relative;
+    min-height: 60px;
+    margin-bottom: 20px;
+}
+.indaba-timeline-description:has(h2, ul) {
+    /* Adjust height automatically based on content */
+    max-height: none;
+    overflow: visible;
+}
+.indaba-timeline-item:has(.indaba-timeline-description h2) + .indaba-timeline-item {
+    margin-top: 120px; /* Add extra margin to prevent overlap */
+}
 .indaba-timeline-content {
     position: absolute;
     width: 45%;
     padding: 5px;
     border-radius: 6px;
-    transition: all 0.3s ease;
-    cursor: pointer;
 }
 
 /* Position content on alternating sides */
@@ -172,20 +197,18 @@
     width: 40px;
     height: 40px;
     left: 50%;
+    top: 0;
     transform: translateX(-50%);
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
 }
 
 .indaba-timeline-node img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    transition: transform 0.5s ease;
-    backface-visibility: visible;
 }
 
 /* Connector lines */
@@ -206,50 +229,56 @@
     left: calc(50% + 20px);
 }
 
-/* Description slides */
+/* Description styles - now in normal document flow */
 .indaba-timeline-description {
-    position: absolute;
     width: 45%;
     padding: 10px 15px;
     background-color: rgba(205, 181, 145, 0.9);
     color: #1a4b87;
     border-radius: 6px;
     font-size: 0.9em;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.4s ease;
-    pointer-events: none;
-    z-index: 5;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin-top: 10px;
+    position: absolute;
+    top: 0;
+    z-index: 20; /* Ensure it's above other elements */
 }
-
 /* Position description on opposite side of content */
 .indaba-timeline-item:nth-child(odd) .indaba-timeline-description {
-    right: 0;
+    left: 55%; /* Position to the left of center */
     text-align: left;
-    padding-left: 20px;
+    margin-right: 20px;
 }
 
 .indaba-timeline-item:nth-child(even) .indaba-timeline-description {
-    left: 0;
-    text-align: right;
-    padding-right: 20px;
+    right: 55%; /* Position to the right of center */
+    text-align: left;
+    margin-left: 20px;
 }
 
-/* REMOVED: No longer rotate on hover */
-/* .indaba-timeline-node:hover img {
-    transform: rotateY(180deg);
-} */
-
-/* Show description and rotate image when description is visible */
-.indaba-timeline-item:hover .indaba-timeline-description {
-    opacity: 1;
-    transform: translateY(0);
+#show-day2-button, #hide-day2-button {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 40px auto 10px;
+    padding: 12px;
+    text-align: center;
+    background-color: #cdb591;
+    color: #1a4b87;
+    text-decoration: none;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
 }
 
-/* Rotate the node image when the description is shown on hover */
-.indaba-timeline-item:hover .indaba-timeline-node img {
-    transform: rotateY(180deg);
+#show-day2-button:hover, #hide-day2-button:hover {
+    background-color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* Mobile Styles for Timeline */
@@ -259,7 +288,8 @@
     }
     
     .indaba-timeline-item {
-        margin-bottom: 50px;
+        padding-bottom: 30px;
+        min-height: auto;
     }
     
     .indaba-timeline-content {
@@ -271,9 +301,7 @@
         padding-right: 15px !important;
         padding: 7px;
     }
-    .sapcer{
-        height: 100vh;
-    }
+    
     .indaba-timeline-node {
         left: 30px;
         transform: none;
@@ -286,41 +314,24 @@
         margin-left: 40px;
     }
     
+    /* Adjust descriptions for mobile */
     .indaba-timeline-description {
+        position: relative;
         width: calc(100% - 70px);
-        left: 70px !important;
-        right: auto !important;
+        margin-left: 70px !important;
+        margin-right: 0 !important;
         text-align: left !important;
-        margin-top: 70px;
-        padding-left: 15px !important;
-        padding-right: 15px !important;
+        top: auto;
+        left: auto !important;
+        right: auto !important;
     }
     
-    /* Disable hover effects on mobile */
-    .indaba-timeline-item:hover .indaba-timeline-description {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    
-    /* Disable hover rotation on mobile */
-    .indaba-timeline-item:hover .indaba-timeline-node img {
-        transform: none;
-    }
-    
-    /* Touch behavior for mobile - rotate image when node is active */
-    .indaba-timeline-node.active img {
-        transform: rotateY(180deg);
-    }
-    
-    /* Show description when node is active */
-    .indaba-timeline-node.active ~ .indaba-timeline-description {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    .show_disc{
-        display: block;
-        position: absolute;
-        right: 0;
+    /* Remove alternating layout on mobile */
+    .indaba-timeline-item:nth-child(odd) .indaba-timeline-description,
+    .indaba-timeline-item:nth-child(even) .indaba-timeline-description {
+        margin-left: 70px;
+        margin-right: 0;
+        text-align: left;
     }
 }
 
@@ -345,23 +356,28 @@
         font-size: 0.9em;
     }
     
-    
     .indaba-program-content {
         padding: 20px 12px;
     }
+    
     .indaba-timeline-content{
         padding: 10px;
     }
+    .indaba-timeline-item:has(.indaba-timeline-description h2) + .indaba-timeline-item {
+        margin-top: 30px;
+    }
 }
+
 .Prog_outline{
     color: white;
     font-size: 2.5rem;
     margin-bottom: 5rem;
     font-weight: 400;
-    text-shadow: 0 0 1px #ffff,   /* soft blue glow */
+    text-shadow: 0 0 1px #ffff,
                0 0 1.5px #ffff,
                0 0 1.5px #ffff;
-  }
-  .program-nav {
+}
+
+.program-nav {
     text-align: center;
-  }
+}
